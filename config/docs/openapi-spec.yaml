@@ -1,0 +1,3612 @@
+---
+openapi: 3.0.3
+info:
+  title: User Management
+  description: Esta API permite consultar gestion de usuarios.
+  version: 1.0.0
+  x-audience: internal
+servers:
+  - url: http://localhost:8080/v1
+paths:
+  "/users/login":
+    post:
+      operationId: login
+      tags:
+        - Login
+      summary: Login
+      description: Esta operacion permite acceder al sistema.
+      requestBody:
+        description: Cuerpo del mensaje para acceder al sistema.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/login"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Token"
+              example:
+                token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/users":
+    get:
+      operationId: getUsers
+      tags:
+        - Users
+      summary: User list
+      description: Esta operación permite listar todos los usuarios.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UsersSecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    post:
+      operationId: createUser
+      tags:
+        - Users
+      summary: Create User
+      description: Esta operacion permite crear un usuario.
+      requestBody:
+        description: Cuerpo del mensaje para crear el usuario.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UserInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/users/{id}":
+    get:
+      operationId: getUser
+      tags:
+        - Users
+      summary: User list
+      description: Esta operación permite listar un usuario.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UserSecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    put:
+      operationId: updateUser
+      tags:
+        - Users
+      summary: User update
+      description: Esta operación permite actualizar un usuario.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Cuerpo del mensaje para actualizar el usuario.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UserInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    delete:
+      operationId: deleteUser
+      tags:
+        - Users
+      summary: User delete
+      description: Esta operación permite eliminar un usuario.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/users/roles":
+    get:
+      operationId: getUsersWithRoles
+      tags:
+        - Users
+      summary: Users list with roles
+      description: Esta operación permite listar todos los usuarios con sus roles.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UsersWithRoles"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/persons":
+    get:
+      operationId: getPersons
+      tags:
+        - Persons
+      summary: Person list
+      description: Esta operación permite listar todos los persons.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PersonsSecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    post:
+      operationId: createPerson
+      tags:
+        - Persons
+      summary: Create Person
+      description: Esta operacion permite crear un usuario.
+      requestBody:
+        description: Cuerpo del mensaje para crear el usuario.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PersonInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/persons/{id}":
+    get:
+      operationId: getPerson
+      tags:
+        - Persons
+      summary: Person list
+      description: Esta operación permite listar un usuario.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PersonSecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    put:
+      operationId: updatePerson
+      tags:
+        - Persons
+      summary: Person update
+      description: Esta operación permite actualizar un usuario.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Cuerpo del mensaje para actualizar el usuario.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PersonInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    delete:
+      operationId: deletePerson
+      tags:
+        - Persons
+      summary: Person delete
+      description: Esta operación permite eliminar un usuario.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/personsLocations":
+    post:
+      operationId: createPersonLocation
+      tags:
+        - PersonsLocations
+      summary: Create Person with location
+      description: Esta operacion permite crear una persona con location.
+      requestBody:
+        description: Cuerpo del mensaje para crear el person.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PersonLocationCreateInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/personsLocations/{id}":
+    put:
+      operationId: updatePersonLocation
+      tags:
+        - PersonsLocations
+      summary: Update Person with location
+      description: Esta operacion permite actualizar una persona con location.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Cuerpo del mensaje para crear el person.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PersonLocationUpdateInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/userRole/user/{userID}":
+    get:
+      operationId: getUserRoles
+      tags:
+        - User Role
+      summary: User with Role list
+      description: Esta operación permite listar todos los user with role.
+      parameters:
+        - name: userID
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UserRoles"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/userRole/user/{userId}/role/{roleId}":
+    get:
+      operationId: getUserRole
+      tags:
+        - User Role
+      summary: User Role list
+      description: Esta operación permite listar un user role.
+      parameters:
+        - name: userId
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - name: roleId
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UserRole"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    post:
+      operationId: postUserRole
+      tags:
+        - User Role
+      summary: User Role update
+      description: Esta operación permite actualizar un user role.
+      parameters:
+        - name: userId
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - name: roleId
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/AssignedBoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    delete:
+      operationId: deleteUserRole
+      tags:
+        - User Role
+      summary: User delete
+      description: Esta operación permite eliminar un user role.
+      parameters:
+        - name: userId
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - name: roleId
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/roles":
+    get:
+      operationId: getRoles
+      tags:
+        - Roles
+      summary: Role list
+      description: Esta operación permite listar todos los roles.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Roles"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    post:
+      operationId: createRole
+      tags:
+        - Roles
+      summary: Create Role
+      description: Esta operacion permite crear un rol.
+      requestBody:
+        description: Cuerpo del mensaje para crear el rol.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RoleInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/roles/{id}":
+    get:
+      operationId: getRole
+      tags:
+        - Roles
+      summary: Role list
+      description: Esta operación permite listar un rol.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Role"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    put:
+      operationId: updateRole
+      tags:
+        - Roles
+      summary: Role update
+      description: Esta operación permite actualizar un rol.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Cuerpo del mensaje para actualizar el rol.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RoleInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    delete:
+      operationId: deleteRole
+      tags:
+        - Roles
+      summary: Role delete
+      description: Esta operación permite eliminar un rol.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/roleView":
+    get:
+      operationId: getRoleView
+      tags:
+        - Role View
+      summary: role with view list
+      description: Esta operación permite listar todos los role with view.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/RoleViews"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    post:
+      operationId: assignmentRoleView
+      tags:
+        - Role View
+      summary: User Role update
+      description: Esta operación permite actualizar un user role.
+      requestBody:
+        description: Cuerpo del mensaje para crear el role view.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RoleViewInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    put:
+      operationId: updateRoleView
+      tags:
+        - Role View
+      summary: RoleView update
+      description: Esta operación permite actualizar un role view.
+      requestBody:
+        description: Cuerpo del mensaje para actualizar el role view.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RoleViewInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/roleView/role/{roleID}/view/{viewID}":
+    get:
+      operationId: getRoleViewDetail
+      tags:
+        - Role View
+      summary: User Role list
+      description: Esta operación permite listar un user role.
+      parameters:
+        - name: roleID
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - name: viewID
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UserRole"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    delete:
+      operationId: deleteRoleViewDetail
+      tags:
+        - Role View
+      summary: User delete
+      description: Esta operación permite eliminar un user role.
+      parameters:
+        - name: roleID
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - name: viewID
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/modules":
+    get:
+      operationId: getModules
+      tags:
+        - Modules
+      summary: Module list
+      description: Esta operación permite listar todos los modules.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Modules"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    post:
+      operationId: createModule
+      tags:
+        - Modules
+      summary: Create Module
+      description: Esta operacion permite crear un module.
+      requestBody:
+        description: Cuerpo del mensaje para crear el module.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ModuleInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/modules/{id}":
+    get:
+      operationId: getModule
+      tags:
+        - Modules
+      summary: Module list
+      description: Esta operación permite listar un module.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Module"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    put:
+      operationId: updateModule
+      tags:
+        - Modules
+      summary: Module update
+      description: Esta operación permite actualizar un module.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Cuerpo del mensaje para actualizar el module.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ModuleInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    delete:
+      operationId: deleteModule
+      tags:
+        - Modules
+      summary: Module delete
+      description: Esta operación permite eliminar un module.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/views":
+    get:
+      operationId: getViews
+      tags:
+        - Views
+      summary: View list
+      description: Esta operación permite listar todos los views.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ViewsSecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    post:
+      operationId: createView
+      tags:
+        - Views
+      summary: Create View
+      description: Esta operacion permite crear un view.
+      requestBody:
+        description: Cuerpo del mensaje para crear el view.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ViewInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/views/{id}":
+    get:
+      operationId: getView
+      tags:
+        - Views
+      summary: View list
+      description: Esta operación permite listar un view.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ViewSecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    put:
+      operationId: updateView
+      tags:
+        - Views
+      summary: View update
+      description: Esta operación permite actualizar un view.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Cuerpo del mensaje para actualizar el view.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ViewInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    delete:
+      operationId: deleteView
+      tags:
+        - Views
+      summary: View delete
+      description: Esta operación permite eliminar un view.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/properties":
+    get:
+      operationId: getProperties
+      tags:
+        - Properties
+      summary: Properties list
+      description: Esta operación permite listar todos los properties.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PropertiesSecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    post:
+      operationId: createProperty
+      tags:
+        - Properties
+      summary: Create Property
+      description: Esta operacion permite crear un property.
+      requestBody:
+        description: Cuerpo del mensaje para crear el property.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PropertyInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/properties/{id}":
+    get:
+      operationId: getProperty
+      tags:
+        - Properties
+      summary: Property list
+      description: Esta operación permite listar un property.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PropertySecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    put:
+      operationId: updateProperty
+      tags:
+        - Properties
+      summary: Property update
+      description: Esta operación permite actualizar un property.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Cuerpo del mensaje para actualizar el property.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PropertyInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    delete:
+      operationId: deleteProperty
+      tags:
+        - Properties
+      summary: Property delete
+      description: Esta operación permite eliminar un property.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/properties/create":
+    post:
+      operationId: createCompleteProperty
+      tags:
+        - Properties
+      summary: Create Property with location and medias
+      description: Esta operacion permite crear un property con location y medias.
+      parameters:
+        - name: medias_ids
+          in: query
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9,b9995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+      requestBody:
+        description: Cuerpo del mensaje para crear el property con location y medias.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PropertyLocationCreateInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/properties/update/{id}":
+    put:
+      operationId: updateCompleteProperty
+      tags:
+        - Properties
+      summary: Update Property with location and medias
+      description: Esta operacion permite actualizar un property con location y medias.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - name: medias_ids
+          in: query
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9,b9995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+      requestBody:
+        description: Cuerpo del mensaje para actualizar el property con location y
+          medias.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PropertyLocationUpdateInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/properties/user/{id}":
+    get:
+      operationId: getPropertyUserId
+      tags:
+        - Properties
+      summary: Property list
+      description: Esta operación permite listar un property.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PropertiesSecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/locations":
+    get:
+      operationId: getLocations
+      tags:
+        - Locations
+      summary: Location list
+      description: Esta operación permite listar todos los locations.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Locations"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    post:
+      operationId: createLocation
+      tags:
+        - Locations
+      summary: Create Location
+      description: Esta operacion permite crear un Location.
+      requestBody:
+        description: Cuerpo del mensaje para crear el Location.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/LocationInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/locations/{id}":
+    get:
+      operationId: getLocation
+      tags:
+        - Locations
+      summary: Location list
+      description: Esta operación permite listar un Location.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Location"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    put:
+      operationId: updateLocation
+      tags:
+        - Locations
+      summary: Location update
+      description: Esta operación permite actualizar un Location.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Cuerpo del mensaje para actualizar el Location.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/LocationInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    delete:
+      operationId: deleteLocation
+      tags:
+        - Locations
+      summary: Location delete
+      description: Esta operación permite eliminar un Location.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/transactions":
+    get:
+      operationId: getTransactions
+      tags:
+        - Transactions
+      summary: Transaction list
+      description: Esta operación permite listar todos los transactions.
+      parameters:
+        - name: typeProperty
+          in: query
+          example: type
+          description: Tipo de propiedad
+          required: false
+          schema:
+            type: string
+        - name: rooms
+          in: query
+          example: 1
+          description: numero de habitaciones
+          required: false
+          schema:
+            type: integer
+        - name: bathrooms
+          in: query
+          example: 1
+          description: numero de bathrooms
+          required: false
+          schema:
+            type: integer
+        - name: minArea
+          in: query
+          example: 0
+          description: minimo de area
+          required: false
+          schema:
+            type: number
+        - name: maxArea
+          in: query
+          example: 110
+          description: maximo de area
+          required: false
+          schema:
+            type: number
+        - name: typeTransaction
+          in: query
+          example: ALQUILER
+          description: Tipo de transaccion
+          required: false
+          schema:
+            type: string
+        - name: maxCost
+          in: query
+          example: type
+          description: maximo costo
+          required: false
+          schema:
+            type: number
+        - name: minCost
+          in: query
+          example: type
+          description: minimo costo
+          required: false
+          schema:
+            type: number
+        - name: country
+          in: query
+          example: country
+          description: pais
+          required: false
+          schema:
+            type: string
+        - name: province
+          in: query
+          example: province
+          description: provincia
+          required: false
+          schema:
+            type: string
+        - name: district
+          in: query
+          example: district
+          description: distrito
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TransactionsThirdLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    post:
+      operationId: createTransaction
+      tags:
+        - Transactions
+      summary: Create Transaction
+      description: Esta operacion permite crear un Transaction.
+      requestBody:
+        description: Cuerpo del mensaje para crear el Transaction.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/TransactionInput"
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/IdOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/transactions/{id}":
+    get:
+      operationId: getTransaction
+      tags:
+        - Transactions
+      summary: Transaction list
+      description: Esta operación permite listar un Transaction.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TransactionSecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    put:
+      operationId: updateTransaction
+      tags:
+        - Transactions
+      summary: Transaction update
+      description: Esta operación permite actualizar un Transaction.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Cuerpo del mensaje para actualizar el Transaction.
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/TransactionInput"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+    delete:
+      operationId: deleteTransaction
+      tags:
+        - Transactions
+      summary: Transaction delete
+      description: Esta operación permite eliminar un Transaction.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '204':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BoolOutput"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+  "/transactions/user/{id}":
+    get:
+      operationId: getTransactionByUser
+      tags:
+        - Transactions
+      summary: Transaction list
+      description: Esta operación permite listar Transactiones por usuario.
+      parameters:
+        - name: id
+          in: path
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TransactionsSecondLevel"
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BadRequest"
+        '422':
+          description: UNPROCESSABLE_ENTITY
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+        '500':
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnexpectedError"
+
+components:
+  schemas:
+    login:
+      type: object
+      properties:
+        user:
+          type: string
+          example: user
+          description: Usuario o nick.
+        email:
+          type: string
+          example: email@email.com
+          description: Email del usuario
+        password:
+          type: string
+          example: password
+          description: Password del usuario.
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID del usuario.
+        user:
+          type: string
+          example: user
+          description: Usuario o nick.
+        password:
+          type: string
+          example: password
+          description: Password del usuario.
+        email:
+          type: string
+          example: email@email.com
+          description: Email del usuario
+        theme:
+          type: string
+          example: black
+          description: Tema de visualizacion del usuario
+        person_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID del person.
+    UserSecondLevel:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID del usuario.
+        user:
+          type: string
+          example: user
+          description: Usuario o nick.
+        password:
+          type: string
+          example: password
+          description: Password del usuario.
+        email:
+          type: string
+          example: email@email.com
+          description: Email del usuario
+        theme:
+          type: string
+          example: black
+          description: Tema de visualizacion del usuario
+        person:
+          "$ref": "#/components/schemas/Person"
+    UserInput:
+      type: object
+      properties:
+        user:
+          type: string
+          example: user
+          description: Usuario o nick.
+        password:
+          type: string
+          example: password
+          description: Password del usuario.
+        email:
+          type: string
+          example: email@email.com
+          description: Email del usuario
+        theme:
+          type: string
+          example: black
+          description: Tema de visualizacion del usuario
+        person_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID del person.
+    UserWithRoles:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID del usuario.
+        user:
+          type: string
+          example: user
+          description: Usuario o nick.
+        password:
+          type: string
+          example: password
+          description: Password del usuario.
+        email:
+          type: string
+          example: email@email.com
+          description: Email del usuario
+        theme:
+          type: string
+          example: black
+          description: Tema de visualizacion del usuario
+        person_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID del person.
+        roles:
+          "$ref": "#/components/schemas/Roles"
+    Users:
+      type: array
+      description: Lista de usuarios.
+      items:
+        "$ref": "#/components/schemas/User"
+    UsersSecondLevel:
+      type: array
+      description: Lista de usuarios.
+      items:
+        "$ref": "#/components/schemas/UserSecondLevel"
+    UsersWithRoles:
+      type: array
+      description: Lista de usuarios con roles.
+      items:
+        "$ref": "#/components/schemas/UserWithRoles"
+    Person:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID del person.
+        document_type:
+          type: string
+          example: document_type
+          description: document_type o nick.
+        document:
+          type: string
+          example: document
+          description: document del person.
+        names:
+          type: string
+          example: names
+          description: names del person
+        lastname:
+          type: string
+          example: lastname
+          description: lastname del person
+        m_lastname:
+          type: string
+          example: m_lastname
+          description: m_lastname del person
+        phone:
+          type: string
+          example: '987654321'
+          description: phone o nick.
+        gender:
+          type: string
+          example: m
+          description: gender del person.
+        marital_status:
+          type: string
+          example: marital_status
+          description: marital_status del person
+        date_birth:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_birth del person
+        photo:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id de la photo person.
+        location_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del location person.
+    PersonSecondLevel:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID del person.
+        document_type:
+          type: string
+          example: document_type
+          description: document_type o nick.
+        document:
+          type: string
+          example: document
+          description: document del person.
+        names:
+          type: string
+          example: names
+          description: names del person
+        lastname:
+          type: string
+          example: black
+          description: lastname del person
+        m_lastname:
+          type: string
+          example: black
+          description: m_lastname del person
+        phone:
+          type: string
+          example: '987654321'
+          description: phone o nick.
+        gender:
+          type: string
+          example: m
+          description: gender del person.
+        marital_status:
+          type: string
+          example: marital_status
+          description: marital_status del person
+        date_birth:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_birth del person
+        photo:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id de la photo person.
+        location_person:
+          "$ref": "#/components/schemas/Location"
+    PersonInput:
+      type: object
+      properties:
+        document_type:
+          type: string
+          example: document_type
+          description: document_type o nick.
+        document:
+          type: string
+          example: document
+          description: document del person.
+        names:
+          type: string
+          example: names
+          description: names del person
+        lastname:
+          type: string
+          example: names
+          description: lastnames del person
+        m_lastname:
+          type: string
+          example: black
+          description: m_lastname del person
+        phone:
+          type: string
+          example: '987654321'
+          description: phone o nick.
+        gender:
+          type: string
+          example: m
+          description: gender del person.
+        marital_status:
+          type: string
+          example: marital_status
+          description: marital_status del person
+        date_birth:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_birth del person
+        photo:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id de la photo.
+        location_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del location person.
+    PersonWithoutLocation:
+      type: object
+      properties:
+        document_type:
+          type: string
+          example: document_type
+          description: document_type o nick.
+        document:
+          type: string
+          example: document
+          description: document del person.
+        names:
+          type: string
+          example: names
+          description: names del person
+        lastname:
+          type: string
+          example: names
+          description: lastnames del person
+        m_lastname:
+          type: string
+          example: black
+          description: m_lastname del person
+        phone:
+          type: string
+          example: '987654321'
+          description: phone o nick.
+        gender:
+          type: string
+          example: m
+          description: gender del person.
+        marital_status:
+          type: string
+          example: marital_status
+          description: marital_status del person
+        date_birth:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_birth del person
+        photo:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id de la photo.
+    Persons:
+      type: array
+      description: Lista de persons.
+      items:
+        "$ref": "#/components/schemas/Person"
+    PersonsSecondLevel:
+      type: array
+      description: Lista de persons.
+      items:
+        "$ref": "#/components/schemas/PersonSecondLevel"
+    PersonLocationCreateInput:
+      type: object
+      properties:
+        person:
+          "$ref": "#/components/schemas/PersonWithoutLocation"
+        location:
+          "$ref": "#/components/schemas/LocationInput"
+    PersonLocationUpdateInput:
+      type: object
+      properties:
+        person:
+          "$ref": "#/components/schemas/PersonInput"
+        location:
+          "$ref": "#/components/schemas/LocationInput"
+    Module:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del modulo.
+        name:
+          type: string
+          example: name
+          description: name.
+        description:
+          type: string
+          example: description
+          description: description del modulo.
+        icon:
+          type: string
+          example: icon
+          description: icon del modulo
+        order:
+          type: integer
+          example: 1
+          description: order de visualizacion del modulo
+    ModuleInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: name
+          description: name.
+        description:
+          type: string
+          example: description
+          description: description del modulo.
+        icon:
+          type: string
+          example: icon
+          description: icon del modulo
+        order:
+          type: integer
+          example: 1
+          description: order de visualizacion del modulo
+    Modules:
+      type: array
+      description: Lista de modulos.
+      items:
+        "$ref": "#/components/schemas/Module"
+    UserRole:
+      type: object
+      properties:
+        user:
+          "$ref": "#/components/schemas/User"
+        role:
+          "$ref": "#/components/schemas/Role"
+    UserRoleInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del user.
+        role_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del role.
+    UserRoles:
+      type: array
+      description: Lista de modulos.
+      items:
+        "$ref": "#/components/schemas/UserRole"
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del role.
+        name:
+          type: string
+          example: name
+          description: name.
+        description:
+          type: string
+          example: description
+          description: description del role.
+        order:
+          type: integer
+          example: 1
+          description: order de visualizacion del role
+    RoleInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: name
+          description: name.
+        description:
+          type: string
+          example: description
+          description: description del role.
+        order:
+          type: integer
+          example: 1
+          description: order de visualizacion del role
+    Roles:
+      type: array
+      description: Lista de modules
+      items:
+        "$ref": "#/components/schemas/Role"
+    RoleView:
+      type: object
+      properties:
+        role:
+          "$ref": "#/components/schemas/Role"
+        view:
+          "$ref": "#/components/schemas/View"
+        viewOrder:
+          type: string
+          example: viewOrder
+          description: viewOrder.
+        viewPosition:
+          type: string
+          example: viewPosition
+          description: viewPosition del view.
+    RoleViewInput:
+      type: object
+      properties:
+        role_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del role.
+        view_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id de view.
+        viewOrder:
+          type: string
+          example: viewOrder
+          description: viewOrder.
+        viewPosition:
+          type: string
+          example: viewPosition
+          description: viewPosition del view.
+    RoleViews:
+      type: array
+      description: Lista de modulos.
+      items:
+        "$ref": "#/components/schemas/RoleView"
+    View:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del view.
+        module_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del module.
+        name:
+          type: string
+          example: name
+          description: name.
+        description:
+          type: string
+          example: description
+          description: description del view.
+        url:
+          type: string
+          example: url
+          description: url de visualizacion del view
+        icon:
+          type: string
+          example: icon
+          description: icon del view
+    ViewSecondLevel:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del view.
+        module:
+          "$ref": "#/components/schemas/Module"
+        name:
+          type: string
+          example: name
+          description: name.
+        description:
+          type: string
+          example: description
+          description: description del view.
+        url:
+          type: string
+          example: url
+          description: url de visualizacion del view
+        icon:
+          type: string
+          example: icon
+          description: icon del view
+    ViewInput:
+      type: object
+      properties:
+        module_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del module.
+        name:
+          type: string
+          example: name
+          description: name.
+        description:
+          type: string
+          example: description
+          description: description del view.
+        url:
+          type: string
+          example: url
+          description: url de visualizacion del view
+        icon:
+          type: string
+          example: icon
+          description: icon del view
+    Views:
+      type: array
+      description: Lista de views.
+      items:
+        "$ref": "#/components/schemas/View"
+    ViewsSecondLevel:
+      type: array
+      description: Lista de views.
+      items:
+        "$ref": "#/components/schemas/ViewSecondLevel"
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID del Location.
+        country:
+          type: string
+          example: country
+          description: Country.
+        city:
+          type: string
+          example: city
+          description: city.
+        province:
+          type: string
+          example: province
+          description: province
+        district:
+          type: string
+          example: district
+          description: district
+        address:
+          type: string
+          example: address
+          description: address del person
+        lat:
+          type: number
+          example: 1.1
+          description: lat
+        long:
+          type: number
+          example: 1.1
+          description: long
+    LocationInput:
+      type: object
+      properties:
+        country:
+          type: string
+          example: country
+          description: Country.
+        city:
+          type: string
+          example: city
+          description: city.
+        province:
+          type: string
+          example: province
+          description: province
+        district:
+          type: string
+          example: district
+          description: district
+        address:
+          type: string
+          example: address
+          description: address
+        lat:
+          type: number
+          example: 1.1
+          description: lat
+        long:
+          type: number
+          example: 1.1
+          description: long
+    Locations:
+      type: array
+      description: Lista de Locations.
+      items:
+        "$ref": "#/components/schemas/Location"
+    Property:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del property.
+        user_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del usuario.
+        location_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del usuario.
+        description:
+          type: string
+          example: description
+          description: description del property.
+        type:
+          type: string
+          example: type
+          description: type del property
+        length:
+          type: number
+          example: 1
+          description: length del property
+        width:
+          type: number
+          example: 1
+          description: width del property
+        area:
+          type: number
+          example: 1
+          description: area del property
+        floor:
+          type: integer
+          example: 1
+          description: floor del property
+        number_of_floor:
+          type: integer
+          example: 1
+          description: number of floors del property
+        rooms:
+          type: integer
+          example: 1
+          description: number of rooms del property
+        bathrooms:
+          type: integer
+          example: 1
+          description: number of bathrooms del property
+        yard:
+          type: integer
+          example: 1
+          description: number of yard del property
+        terrace:
+          type: integer
+          example: 1
+          description: number of terrace del property
+        living_room:
+          type: integer
+          example: 1
+          description: number of living_room del property
+        laundry_room:
+          type: integer
+          example: 1
+          description: number of laundry_room del property
+        kitchen:
+          type: integer
+          example: 1
+          description: number of kitchen del property
+        garage:
+          type: integer
+          example: 1
+          description: number of garage del property
+    PropertySecondLevel:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del property.
+        user:
+          "$ref": "#/components/schemas/User"
+        location:
+          "$ref": "#/components/schemas/Location"
+        description:
+          type: string
+          example: description
+          description: description del property.
+        type:
+          type: string
+          example: type
+          description: type del property
+        length:
+          type: number
+          example: 1
+          description: length del property
+        width:
+          type: number
+          example: 1
+          description: width del property
+        area:
+          type: number
+          example: 1
+          description: area del property
+        floor:
+          type: integer
+          example: 1
+          description: floor del property
+        number_of_floor:
+          type: integer
+          example: 1
+          description: number of floors del property
+        rooms:
+          type: integer
+          example: 1
+          description: number of rooms del property
+        bathrooms:
+          type: integer
+          example: 1
+          description: number of bathrooms del property
+        yard:
+          type: integer
+          example: 1
+          description: number of yard del property
+        terrace:
+          type: integer
+          example: 1
+          description: number of terrace del property
+        living_room:
+          type: integer
+          example: 1
+          description: number of living_room del property
+        laundry_room:
+          type: integer
+          example: 1
+          description: number of laundry_room del property
+        kitchen:
+          type: integer
+          example: 1
+          description: number of kitchen del property
+        garage:
+          type: integer
+          example: 1
+          description: number of garage del property
+    PropertiesSecondLevel:
+      type: array
+      description: Lista de Propiedades.
+      items:
+        "$ref": "#/components/schemas/PropertySecondLevel"
+    PropertyWithoutUserSecondLevel:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del property.
+        user_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del usuario.
+        location:
+          "$ref": "#/components/schemas/Location"
+        description:
+          type: string
+          example: description
+          description: description del property.
+        type:
+          type: string
+          example: type
+          description: type del property
+        length:
+          type: number
+          example: 1
+          description: length del property
+        width:
+          type: number
+          example: 1
+          description: width del property
+        area:
+          type: number
+          example: 1
+          description: area del property
+        floor:
+          type: integer
+          example: 1
+          description: floor del property
+        number_of_floor:
+          type: integer
+          example: 1
+          description: number of floors del property
+        rooms:
+          type: integer
+          example: 1
+          description: number of rooms del property
+        bathrooms:
+          type: integer
+          example: 1
+          description: number of bathrooms del property
+        yard:
+          type: integer
+          example: 1
+          description: number of yard del property
+        terrace:
+          type: integer
+          example: 1
+          description: number of terrace del property
+        living_room:
+          type: integer
+          example: 1
+          description: number of living_room del property
+        laundry_room:
+          type: integer
+          example: 1
+          description: number of laundry_room del property
+        kitchen:
+          type: integer
+          example: 1
+          description: number of kitchen del property
+        garage:
+          type: integer
+          example: 1
+          description: number of garage del property
+    PropertyInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del usuario.
+        location_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del usuario.
+        description:
+          type: string
+          example: description
+          description: description del property.
+        type:
+          type: string
+          example: type
+          description: type del property
+        length:
+          type: number
+          example: 1
+          description: length del property
+        width:
+          type: number
+          example: 1
+          description: width del property
+        area:
+          type: number
+          example: 1
+          description: area del property
+        floor:
+          type: integer
+          example: 1
+          description: floor del property
+        number_of_floor:
+          type: integer
+          example: 1
+          description: number of floors del property
+        rooms:
+          type: integer
+          example: 1
+          description: number of rooms del property
+        bathrooms:
+          type: integer
+          example: 1
+          description: number of bathrooms del property
+        yard:
+          type: integer
+          example: 1
+          description: number of yard del property
+        terrace:
+          type: integer
+          example: 1
+          description: number of terrace del property
+        living_room:
+          type: integer
+          example: 1
+          description: number of living_room del property
+        laundry_room:
+          type: integer
+          example: 1
+          description: number of laundry_room del property
+        kitchen:
+          type: integer
+          example: 1
+          description: number of kitchen del property
+        garage:
+          type: integer
+          example: 1
+          description: number of garage del property
+    PropertyLocationCreateInput:
+      type: object
+      properties:
+        property:
+          "$ref": "#/components/schemas/PropertyWithoutLocation"
+        location:
+          "$ref": "#/components/schemas/LocationInput"
+    PropertyWithoutLocation:
+      type: object
+      properties:
+        user_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del usuario.
+        description:
+          type: string
+          example: description
+          description: description del property.
+        type:
+          type: string
+          example: type
+          description: type del property
+        length:
+          type: number
+          example: 1
+          description: length del property
+        width:
+          type: number
+          example: 1
+          description: width del property
+        area:
+          type: number
+          example: 1
+          description: area del property
+        floor:
+          type: integer
+          example: 1
+          description: floor del property
+        number_of_floor:
+          type: integer
+          example: 1
+          description: number of floors del property
+        rooms:
+          type: integer
+          example: 1
+          description: number of rooms del property
+        bathrooms:
+          type: integer
+          example: 1
+          description: number of bathrooms del property
+        yard:
+          type: integer
+          example: 1
+          description: number of yard del property
+        terrace:
+          type: integer
+          example: 1
+          description: number of terrace del property
+        living_room:
+          type: integer
+          example: 1
+          description: number of living_room del property
+        laundry_room:
+          type: integer
+          example: 1
+          description: number of laundry_room del property
+        kitchen:
+          type: integer
+          example: 1
+          description: number of kitchen del property
+        garage:
+          type: integer
+          example: 1
+          description: number of garage del property
+    PropertyLocationUpdateInput:
+      type: object
+      properties:
+        property:
+          "$ref": "#/components/schemas/PropertyInput"
+        location:
+          "$ref": "#/components/schemas/LocationInput"
+    Properties:
+      type: array
+      description: Lista de properties.
+      items:
+        "$ref": "#/components/schemas/Property"
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+          description: Token User.
+    TransactionSecondLevel:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del transaction.
+        property:
+          "$ref": "#/components/schemas/Property"
+        cost:
+          type: number
+          example: 1
+          description: cost del transaction.
+        currency:
+          type: string
+          example: soles
+          description: currency del transaction.
+        date_vip:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_vip del transaction
+        date_post:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_post del transaction
+        date_update:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_update del transaction
+        available:
+          type: boolean
+          example: true
+          description: available del transaction
+        type:
+          type: string
+          example: casa
+          description: type del transaction
+        date_start:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_start del transaction
+        date_end:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_end del transaction
+    TransactionThirdLevel:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del transaction.
+        property:
+          "$ref": "#/components/schemas/PropertyWithoutUserSecondLevel"
+        cost:
+          type: number
+          example: 1
+          description: cost del transaction.
+        currency:
+          type: string
+          example: soles
+          description: currency del transaction.
+        date_vip:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_vip del transaction
+        date_post:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_post del transaction
+        date_update:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_update del transaction
+        available:
+          type: boolean
+          example: true
+          description: available del transaction
+        type:
+          type: string
+          example: casa
+          description: type del transaction
+        date_start:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_start del transaction
+        date_end:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_end del transaction
+    TransactionInput:
+      type: object
+      properties:
+        property_id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: id del transaction.
+        cost:
+          type: number
+          example: 1
+          description: cost del transaction.
+        currency:
+          type: string
+          example: soles
+          description: currency del transaction.
+        date_vip:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_vip del transaction
+        date_post:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_post del transaction
+        date_update:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_update del transaction
+        available:
+          type: boolean
+          example: true
+          description: available del transaction
+        type:
+          type: string
+          example: casa
+          description: type del transaction
+        date_start:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_start del transaction
+        date_end:
+          type: string
+          example: '2023-02-19T06:46:57+00:00'
+          description: date_end del transaction
+    TransactionsSecondLevel:
+      type: array
+      description: Lista de transactions.
+      items:
+        "$ref": "#/components/schemas/TransactionSecondLevel"
+    TransactionsThirdLevel:
+      type: array
+      description: Lista de transactions.
+      items:
+        "$ref": "#/components/schemas/TransactionThirdLevel"
+    IdOutput:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID.
+    BoolOutput:
+      type: object
+      properties:
+        updated:
+          type: boolean
+          example: true
+          description: boolean response.
+    AssignedBoolOutput:
+      type: object
+      properties:
+        assigned:
+          type: boolean
+          example: true
+          description: boolean response.
+    UnexpectedError:
+      type: object
+      description: Object of response error
+      properties:
+        error:
+          type: string
+          description: message of response
+          example: An internal server error has occurred.
+    BadRequest:
+      type: object
+      description: Object of response error
+      properties:
+        error:
+          type: string
+          description: custom code of response
+          example: BAD_REQUEST
+    UnprocessableEntity:
+      type: object
+      description: Object of response error
+      properties:
+        error:
+          type: string
+          description: custom code of response
+          example: UNPROCESSABLE_ENTITY
+    EntityDetail:
+      type: object
+      description: Object of response error
+      properties:
+        field:
+          type: string
+          description: field with error
+          example: distributorCode
+        issue:
+          type: string
+          description: custom code of response
+          example: MISSING_REQUIRED_PARAMETER
+        description:
+          type: string
+          description: error details of field
+          example: cant not be empty

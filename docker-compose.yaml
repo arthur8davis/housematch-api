@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:14-alpine
+    restart: always
+    container_name: db_postgres
+    ports:
+      - 54320:5432
+    environment:
+        POSTGRES_PASSWORD: admin
+        POSTGRES_USER: admin
+        POSTGRES_DB: housematch
+
+  api:
+    image: arthur8davis/housematch-server
+    container_name: api
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DB_HOST: 172.17.0.1
+      DB_PORT: 54320
+      DB_USER: admin
+      DB_PASS: admin
+      DB_DB: housematch
+      DB_SSLMODE: disable
+      DB_MAXLIMIT: 100
