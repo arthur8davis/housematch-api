@@ -4,8 +4,8 @@ import (
 	"context"
 	rkentry "github.com/rookie-ninja/rk-entry/v2/entry"
 
-	"github.com/Melany751/house-match-server/domain/model"
-	"github.com/Melany751/house-match-server/infrastructure/handler"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	"github.com/arthur8davis/housematch-api/infrastructure/handler"
 	"github.com/joho/godotenv"
 )
 

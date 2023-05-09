@@ -1,4 +1,4 @@
-module github.com/Melany751/house-match-server
+module github.com/arthur8davis/housematch-api
 
 go 1.19
 

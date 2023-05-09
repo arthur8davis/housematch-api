@@ -1,9 +1,9 @@
 package view
 
 import (
-	useCaseView "github.com/Melany751/house-match-server/application/usecase/view"
-	"github.com/Melany751/house-match-server/domain/model"
-	storageView "github.com/Melany751/house-match-server/infrastructure/storage/postgres/view"
+	useCaseView "github.com/arthur8davis/housematch-api/application/usecase/view"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	storageView "github.com/arthur8davis/housematch-api/infrastructure/storage/postgres/view"
 	"github.com/gin-gonic/gin"
 )
 

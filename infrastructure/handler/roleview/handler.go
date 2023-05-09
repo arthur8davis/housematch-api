@@ -2,9 +2,9 @@ package roleview
 
 import (
 	"fmt"
-	"github.com/Melany751/house-match-server/domain/model"
-	"github.com/Melany751/house-match-server/domain/services/response"
-	roleView "github.com/Melany751/house-match-server/domain/services/roleview"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	"github.com/arthur8davis/housematch-api/domain/services/response"
+	roleView "github.com/arthur8davis/housematch-api/domain/services/roleview"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )

@@ -1,9 +1,9 @@
 package module
 
 import (
-	useCaseModule "github.com/Melany751/house-match-server/application/usecase/module"
-	"github.com/Melany751/house-match-server/domain/model"
-	storageModule "github.com/Melany751/house-match-server/infrastructure/storage/postgres/module"
+	useCaseModule "github.com/arthur8davis/housematch-api/application/usecase/module"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	storageModule "github.com/arthur8davis/housematch-api/infrastructure/storage/postgres/module"
 	"github.com/gin-gonic/gin"
 )
 

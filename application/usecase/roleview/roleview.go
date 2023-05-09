@@ -2,8 +2,8 @@ package roleview
 
 import (
 	"fmt"
-	roleView "github.com/Melany751/house-match-server/application/repository/storage/roleview"
-	"github.com/Melany751/house-match-server/domain/model"
+	roleView "github.com/arthur8davis/housematch-api/application/repository/storage/roleview"
+	"github.com/arthur8davis/housematch-api/domain/model"
 	"github.com/google/uuid"
 )
 

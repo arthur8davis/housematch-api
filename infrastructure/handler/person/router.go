@@ -1,9 +1,9 @@
 package person
 
 import (
-	useCasePerson "github.com/Melany751/house-match-server/application/usecase/person"
-	"github.com/Melany751/house-match-server/domain/model"
-	storagePerson "github.com/Melany751/house-match-server/infrastructure/storage/postgres/person"
+	useCasePerson "github.com/arthur8davis/housematch-api/application/usecase/person"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	storagePerson "github.com/arthur8davis/housematch-api/infrastructure/storage/postgres/person"
 	"github.com/gin-gonic/gin"
 )
 

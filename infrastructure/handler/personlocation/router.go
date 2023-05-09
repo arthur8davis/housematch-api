@@ -1,9 +1,9 @@
 package personlocation
 
 import (
-	useCasePersonLocation "github.com/Melany751/house-match-server/application/usecase/personlocation"
-	"github.com/Melany751/house-match-server/domain/model"
-	storagePersonLocation "github.com/Melany751/house-match-server/infrastructure/storage/postgres/personlocation"
+	useCasePersonLocation "github.com/arthur8davis/housematch-api/application/usecase/personlocation"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	storagePersonLocation "github.com/arthur8davis/housematch-api/infrastructure/storage/postgres/personlocation"
 	"github.com/gin-gonic/gin"
 )
 

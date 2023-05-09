@@ -2,8 +2,8 @@ package property
 
 import (
 	"fmt"
-	"github.com/Melany751/house-match-server/application/repository/storage/property"
-	"github.com/Melany751/house-match-server/domain/model"
+	"github.com/arthur8davis/housematch-api/application/repository/storage/property"
+	"github.com/arthur8davis/housematch-api/domain/model"
 	"github.com/google/uuid"
 )
 

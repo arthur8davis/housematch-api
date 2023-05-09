@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-	"github.com/Melany751/house-match-server/bootstrap"
+	"github.com/arthur8davis/housematch-api/bootstrap"
 	rkentry "github.com/rookie-ninja/rk-entry/v2/entry"
 )
 

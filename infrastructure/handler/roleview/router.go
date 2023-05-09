@@ -1,9 +1,9 @@
 package roleview
 
 import (
-	useCaseRoleView "github.com/Melany751/house-match-server/application/usecase/roleview"
-	"github.com/Melany751/house-match-server/domain/model"
-	storageRoleView "github.com/Melany751/house-match-server/infrastructure/storage/postgres/roleview"
+	useCaseRoleView "github.com/arthur8davis/housematch-api/application/usecase/roleview"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	storageRoleView "github.com/arthur8davis/housematch-api/infrastructure/storage/postgres/roleview"
 	"github.com/gin-gonic/gin"
 )
 

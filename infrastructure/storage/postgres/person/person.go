@@ -3,7 +3,7 @@ package person
 import (
 	"database/sql"
 	"fmt"
-	"github.com/Melany751/house-match-server/domain/model"
+	"github.com/arthur8davis/housematch-api/domain/model"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v4"
 	"reflect"

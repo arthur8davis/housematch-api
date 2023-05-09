@@ -1,9 +1,9 @@
 package transaction
 
 import (
-	useCaseTransaction "github.com/Melany751/house-match-server/application/usecase/transaction"
-	"github.com/Melany751/house-match-server/domain/model"
-	storageTransaction "github.com/Melany751/house-match-server/infrastructure/storage/postgres/transaction"
+	useCaseTransaction "github.com/arthur8davis/housematch-api/application/usecase/transaction"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	storageTransaction "github.com/arthur8davis/housematch-api/infrastructure/storage/postgres/transaction"
 	"github.com/gin-gonic/gin"
 )
 

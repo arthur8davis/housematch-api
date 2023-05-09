@@ -1,9 +1,9 @@
 package userrole
 
 import (
-	useCaseUserRole "github.com/Melany751/house-match-server/application/usecase/userrole"
-	"github.com/Melany751/house-match-server/domain/model"
-	storageUserRole "github.com/Melany751/house-match-server/infrastructure/storage/postgres/userrole"
+	useCaseUserRole "github.com/arthur8davis/housematch-api/application/usecase/userrole"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	storageUserRole "github.com/arthur8davis/housematch-api/infrastructure/storage/postgres/userrole"
 	"github.com/gin-gonic/gin"
 )
 

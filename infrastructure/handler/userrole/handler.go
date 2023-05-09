@@ -2,9 +2,9 @@ package userrole
 
 import (
 	"fmt"
-	"github.com/Melany751/house-match-server/domain/model"
-	"github.com/Melany751/house-match-server/domain/services/response"
-	userRole "github.com/Melany751/house-match-server/domain/services/userrole"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	"github.com/arthur8davis/housematch-api/domain/services/response"
+	userRole "github.com/arthur8davis/housematch-api/domain/services/userrole"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )

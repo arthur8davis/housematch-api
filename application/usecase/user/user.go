@@ -2,8 +2,8 @@ package user
 
 import (
 	"fmt"
-	"github.com/Melany751/house-match-server/application/repository/storage/user"
-	"github.com/Melany751/house-match-server/domain/model"
+	"github.com/arthur8davis/housematch-api/application/repository/storage/user"
+	"github.com/arthur8davis/housematch-api/domain/model"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )

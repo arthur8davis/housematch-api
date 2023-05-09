@@ -1,18 +1,18 @@
 package handler
 
 import (
-	"github.com/Melany751/house-match-server/domain/model"
-	routerLocationPerson "github.com/Melany751/house-match-server/infrastructure/handler/location"
-	routerModule "github.com/Melany751/house-match-server/infrastructure/handler/module"
-	routerPerson "github.com/Melany751/house-match-server/infrastructure/handler/person"
-	routerPersonLocation "github.com/Melany751/house-match-server/infrastructure/handler/personlocation"
-	routerProperty "github.com/Melany751/house-match-server/infrastructure/handler/property"
-	routerRole "github.com/Melany751/house-match-server/infrastructure/handler/role"
-	routerRoleView "github.com/Melany751/house-match-server/infrastructure/handler/roleview"
-	routerTransaction "github.com/Melany751/house-match-server/infrastructure/handler/transaction"
-	routerUser "github.com/Melany751/house-match-server/infrastructure/handler/user"
-	routerUserRole "github.com/Melany751/house-match-server/infrastructure/handler/userrole"
-	routerView "github.com/Melany751/house-match-server/infrastructure/handler/view"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	routerLocationPerson "github.com/arthur8davis/housematch-api/infrastructure/handler/location"
+	routerModule "github.com/arthur8davis/housematch-api/infrastructure/handler/module"
+	routerPerson "github.com/arthur8davis/housematch-api/infrastructure/handler/person"
+	routerPersonLocation "github.com/arthur8davis/housematch-api/infrastructure/handler/personlocation"
+	routerProperty "github.com/arthur8davis/housematch-api/infrastructure/handler/property"
+	routerRole "github.com/arthur8davis/housematch-api/infrastructure/handler/role"
+	routerRoleView "github.com/arthur8davis/housematch-api/infrastructure/handler/roleview"
+	routerTransaction "github.com/arthur8davis/housematch-api/infrastructure/handler/transaction"
+	routerUser "github.com/arthur8davis/housematch-api/infrastructure/handler/user"
+	routerUserRole "github.com/arthur8davis/housematch-api/infrastructure/handler/userrole"
+	routerView "github.com/arthur8davis/housematch-api/infrastructure/handler/view"
 )
 
 func InitRoutes(specification model.RouterSpecification) {

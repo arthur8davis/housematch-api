@@ -1,9 +1,9 @@
 package property
 
 import (
-	useCaseProperty "github.com/Melany751/house-match-server/application/usecase/property"
-	"github.com/Melany751/house-match-server/domain/model"
-	storageProperty "github.com/Melany751/house-match-server/infrastructure/storage/postgres/property"
+	useCaseProperty "github.com/arthur8davis/housematch-api/application/usecase/property"
+	"github.com/arthur8davis/housematch-api/domain/model"
+	storageProperty "github.com/arthur8davis/housematch-api/infrastructure/storage/postgres/property"
 	"github.com/gin-gonic/gin"
 )
 
