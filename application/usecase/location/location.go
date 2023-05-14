@@ -15,8 +15,8 @@ func New(storage locationperson.StorageLocation) Location {
 	return Location{storage}
 }
 
-func (u Location) GetById(id uuid.UUID) (*model.Location, error) {
-	user, err := u.storage.GetByIdStorage(id)
+func (l Location) GetById(id uuid.UUID) (*model.Location, error) {
+	user, err := l.storage.GetByIdStorage(id)
 	if err != nil {
 		return nil, fmt.Errorf("locationPerson.storage.GetById(): %w", err)
 	}
@@ -24,8 +24,8 @@ func (u Location) GetById(id uuid.UUID) (*model.Location, error) {
 	return user, nil
 }
 
-func (u Location) GetAll() (model.Locations, error) {
-	users, err := u.storage.GetAllStorage()
+func (l Location) GetAll() (model.Locations, error) {
+	users, err := l.storage.GetAllStorage()
 	if err != nil {
 		return nil, fmt.Errorf("locationPerson.storage.GetAll(): %w", err)
 	}
@@ -33,8 +33,8 @@ func (u Location) GetAll() (model.Locations, error) {
 	return users, nil
 }
 
-func (u Location) Create(user model.Location) (*model.CreateOutput, error) {
-	id, err := u.storage.CreateStorage(user)
+func (l Location) Create(location model.Location) (*model.CreateOutput, error) {
+	id, err := l.storage.CreateStorage(location)
 	if err != nil {
 		return nil, fmt.Errorf("locationPerson.use.Create(): %w", err)
 		//return nil, fmt.Errorf("locationPerson.use.Create(): %s", err.Error())
@@ -46,8 +46,8 @@ func (u Location) Create(user model.Location) (*model.CreateOutput, error) {
 	return &m, nil
 }
 
-func (u Location) Update(id uuid.UUID, user model.Location) (*model.UpdateOutput, error) {
-	created, err := u.storage.UpdateStorage(id, user)
+func (l Location) Update(id uuid.UUID, location model.Location) (*model.UpdateOutput, error) {
+	created, err := l.storage.UpdateStorage(id, location)
 	if err != nil {
 		return nil, fmt.Errorf("locationPerson.storage.Update(): %w", err)
 	}
@@ -57,8 +57,8 @@ func (u Location) Update(id uuid.UUID, user model.Location) (*model.UpdateOutput
 	return &m, nil
 }
 
-func (u Location) Delete(id uuid.UUID) (*model.DeleteOutput, error) {
-	deleted, err := u.storage.DeleteStorage(id)
+func (l Location) Delete(id uuid.UUID) (*model.DeleteOutput, error) {
+	deleted, err := l.storage.DeleteStorage(id)
 	if err != nil {
 		return nil, fmt.Errorf("locationPerson.storage.Delete(): %w", err)
 	}

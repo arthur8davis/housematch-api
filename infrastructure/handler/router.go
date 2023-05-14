@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/arthur8davis/housematch-api/domain/model"
 	routerLocationPerson "github.com/arthur8davis/housematch-api/infrastructure/handler/location"
+	routerMedia "github.com/arthur8davis/housematch-api/infrastructure/handler/media"
 	routerModule "github.com/arthur8davis/housematch-api/infrastructure/handler/module"
 	routerPerson "github.com/arthur8davis/housematch-api/infrastructure/handler/person"
 	routerPersonLocation "github.com/arthur8davis/housematch-api/infrastructure/handler/personlocation"
@@ -38,4 +39,6 @@ func InitRoutes(specification model.RouterSpecification) {
 	routerProperty.NewRouter(specification)
 	// Transaction
 	routerTransaction.NewRouter(specification)
+	// Media
+	routerMedia.NewRouter(specification)
 }

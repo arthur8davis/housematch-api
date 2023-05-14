@@ -6,7 +6,7 @@ type Media struct {
 	ID   uuid.UUID `json:"id"`
 	Name string    `json:"name"`
 	URL  string    `json:"url"`
-	Size float64   `json:"size"`
+	Size int64     `json:"size"`
 	Type string    `json:"type"`
 }
 

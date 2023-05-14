@@ -14,7 +14,7 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
-# Go workspace file
+# Go workspace media
 go.work
 
 ## Directory-based project format:
@@ -26,10 +26,10 @@ scripts/.idea
 *.ipr
 *.iws
 
-# Sublime files
+# Sublime media
 *.sublime-*
 
-# Vscode files
+# Vscode media
 .vscode/*
 tags
 
