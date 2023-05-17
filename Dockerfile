@@ -2,6 +2,8 @@ FROM golang:1.19.0 AS builder
 
 ENV GOPRIVATE=dev.azure.com
 
+RUN mkdir /home/storage
+
 WORKDIR /src
 
 COPY . .

@@ -14,7 +14,7 @@ func newDatabase() *sql.DB {
 	port := os.Getenv("DB_PORT")
 	user := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASS")
-	dbname := os.Getenv("DB_DB")
+	dbname := os.Getenv("DB_NAME")
 	sslMode := os.Getenv("DB_SSLMODE")
 
 	config := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",

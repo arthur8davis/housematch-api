@@ -35,7 +35,7 @@ func (h handler) upload(c *gin.Context) {
 	}
 
 	filename := generateFilename.String() + filepath.Ext(file.Filename)
-	destinationFile := filepath.Join(os.Getenv("FILES"), filename)
+	destinationFile := filepath.Join(os.Getenv("STORAGE_PATH"), filename)
 
 	err = c.SaveUploadedFile(file, destinationFile)
 	if err != nil {
