@@ -8,7 +8,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080/v1"
+      "url": "http://167.71.53.173/:8080/v1"
     }
   ],
   "paths": {
