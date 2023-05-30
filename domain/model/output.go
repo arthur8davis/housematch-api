@@ -17,3 +17,7 @@ type UpdateOutput struct {
 type AssignOutput struct {
 	Assigned bool `json:"assigned"`
 }
+
+type TokenOutput struct {
+	Token string `json:"token"`
+}

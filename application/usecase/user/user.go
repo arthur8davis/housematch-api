@@ -62,8 +62,7 @@ func (u User) Create(user model.User) (*model.CreateOutput, error) {
 	return &m, nil
 }
 
-func (u User) Login(login model.Login) (*string, error) {
-	fmt.Println("login", login)
+func (u User) Login(login model.Login) (*model.TokenOutput, error) {
 	m, err := u.storage.GetByUsernameOrEmailStorage(login.User, login.Email)
 	if err != nil {
 		return nil, err
@@ -79,7 +78,10 @@ func (u User) Login(login model.Login) (*string, error) {
 		return nil, err
 	}
 
-	return &tokenString, err
+	var t model.TokenOutput
+	t.Token = tokenString
+
+	return &t, err
 }
 
 func (u User) Update(id uuid.UUID, user model.User) (*model.UpdateOutput, error) {

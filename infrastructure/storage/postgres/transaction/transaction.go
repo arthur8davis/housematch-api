@@ -143,10 +143,17 @@ var (
 								   l.district,
 								   l.address,
 								   l.lat,
-								   l.long
+								   l.long,
+       							   m.id,
+       							   m."name",
+       							   m.url,
+       							   m.type,
+       							   m.size
 							FROM domain.properties p
 									 INNER JOIN domain.transactions t on p.id = t.property_id
 									 INNER JOIN domain.locations l on l.id = p.location_id
+									 INNER JOIN domain.properties_medias pm on p.id = pm.property_id
+									 INNER JOIN domain.medias m on pm.media_id = m.id;
 							WHERE p.type=$1
 							  AND p.rooms=$2
 							  AND p.bathrooms=$3
@@ -430,7 +437,11 @@ func (r Transaction) scanRowWithPropertyLocation(s pgx.Row) (model.TransactionTh
 		&m.DateStart,
 		&m.DateEnd,
 		&m.Property.ID,
-		&m.Property.UserID,
+		&m.Property.User.ID,
+		&m.Property.User.PersonID,
+		&m.Property.User.User,
+		&m.Property.User.Email,
+		&m.Property.User.Theme,
 		&m.Property.Description,
 		&m.Property.Type,
 		&m.Property.Length,

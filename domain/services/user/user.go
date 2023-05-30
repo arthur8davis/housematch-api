@@ -6,7 +6,7 @@ import (
 )
 
 type UseCaseUser interface {
-	Login(login model.Login) (*string, error)
+	Login(login model.Login) (*model.TokenOutput, error)
 	GetById(id uuid.UUID) (*model.UserSecondLevel, error)
 	GetAll() (model.UsersSecondLevel, error)
 	GetAllWithRoles() (model.UsersWithRolesOutput, error)
