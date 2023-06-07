@@ -43,11 +43,18 @@ var (
 						   u.password,
 						   u.email,
 						   u.theme,
-						   u.person_id
+						   u.person_id,
+					       m.id,
+					       m."name",
+					       m.url,
+					       m.type,
+					       m.size
 					FROM domain.properties p
-							 INNER JOIN domain.users u ON p.user_id = u.id
-							 INNER JOIN domain.locations l on l.id = p.location_id
-					WHERE p.id = $1`
+							INNER JOIN domain.users u ON p.user_id = u.id
+							INNER JOIN domain.locations l on l.id = p.location_id
+							INNER JOIN domain.properties_medias pm on p.id = pm.property_id
+							INNER JOIN domain.medias m on pm.media_id = m.id
+							WHERE p.id = $1`
 	_psqlGetByUserId = `SELECT 
     				p.id,
     				l.id,
@@ -78,10 +85,17 @@ var (
     				u.password, 
     				u.email, 
     				u.theme,
-    				u.person_id 
-					FROM domain.properties p 
-    				    INNER JOIN domain.users u ON p.user_id=u.id
-    				    INNER JOIN domain.locations l on l.id = p.location_id
+    				u.person_id,
+					m.id,
+					m."name",
+					m.url,
+					m.type,
+					m.size
+					FROM domain.properties p
+							INNER JOIN domain.users u ON p.user_id = u.id
+							INNER JOIN domain.locations l on l.id = p.location_id
+							INNER JOIN domain.properties_medias pm on p.id = pm.property_id
+							INNER JOIN domain.medias m on pm.media_id = m.id
     				    WHERE p.user_id=$1`
 	_psqlGetAll = `SELECT 
     				p.id,
@@ -113,10 +127,17 @@ var (
     				u.password, 
     				u.email, 
     				u.theme,
-    				u.person_id 
-					FROM domain.properties p 
-    				    INNER JOIN domain.users u ON p.user_id=u.id
-    				    INNER JOIN domain.locations l on l.id = p.location_id`
+    				u.person_id,
+					m.id,
+					m."name",
+					m.url,
+					m.type,
+					m.size
+					FROM domain.properties p
+							INNER JOIN domain.users u ON p.user_id = u.id
+							INNER JOIN domain.locations l on l.id = p.location_id
+							INNER JOIN domain.properties_medias pm on p.id = pm.property_id
+							INNER JOIN domain.medias m on pm.media_id = m.id;`
 	_psqlInsertProperty      = `INSERT INTO domain.properties (id, "user_id","location_id", "description", "type", "length","width","area","floor","number_of_floors","rooms","bathrooms","yard","terrace","living_room","laundry_room","kitchen","garage") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`
 	_psqlInsertLocation      = `INSERT INTO domain.locations (id, country, city, province, district, address, lat, long) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`
 	_psqlInsertPropertyMedia = `INSERT INTO domain.properties_medias ("property_id","media_id") VALUES ($1, $2)`
@@ -134,7 +155,7 @@ func New(db *sql.DB) Property {
 	return Property{db}
 }
 
-func (p Property) GetStorageById(id uuid.UUID) (*model.PropertySecondLevel, error) {
+func (p Property) GetByIdStorage(id uuid.UUID) (*model.PropertySecondLevel, error) {
 	args := []any{id}
 
 	stmt, err := p.db.Prepare(_psqlGetById)
@@ -143,15 +164,17 @@ func (p Property) GetStorageById(id uuid.UUID) (*model.PropertySecondLevel, erro
 	}
 	defer stmt.Close()
 
-	m, err := p.scanRowWithUser(stmt.QueryRow(args...))
+	m, err := p.scanRowSecondLevel(stmt.QueryRow(args...))
 	if err != nil {
 		return nil, err
 	}
 
-	return &m, nil
+	mp := makeProperty(m)
+
+	return &mp, nil
 }
 
-func (p Property) GetStorageAll() (model.PropertiesSecondLevel, error) {
+func (p Property) GetAllStorage() (model.PropertiesSecondLevel, error) {
 	stmt, err := p.db.Prepare(_psqlGetAll)
 	if err != nil {
 		return nil, err
@@ -164,21 +187,21 @@ func (p Property) GetStorageAll() (model.PropertiesSecondLevel, error) {
 	}
 	defer rows.Close()
 
-	var ms model.PropertiesSecondLevel
-	var m model.PropertySecondLevel
+	var ms model.PropertiesSecondLevelStorage
+	var m model.PropertySecondLevelStorage
 
 	for rows.Next() {
-		m, err = p.scanRowWithUser(rows)
+		m, err = p.scanRowSecondLevel(rows)
 		if err != nil {
 			break
 		}
 		ms = append(ms, m)
 	}
 
-	return ms, nil
+	return makeProperties(ms), nil
 }
 
-func (p Property) GetStorageByUserId(id uuid.UUID) (model.PropertiesSecondLevel, error) {
+func (p Property) GetByUserIdStorage(id uuid.UUID) (model.PropertiesSecondLevel, error) {
 	args := []any{id}
 
 	stmt, err := p.db.Prepare(_psqlGetByUserId)
@@ -193,18 +216,18 @@ func (p Property) GetStorageByUserId(id uuid.UUID) (model.PropertiesSecondLevel,
 	}
 	defer rows.Close()
 
-	var ms model.PropertiesSecondLevel
-	var m model.PropertySecondLevel
+	var ms model.PropertiesSecondLevelStorage
+	var m model.PropertySecondLevelStorage
 
 	for rows.Next() {
-		m, err = p.scanRowWithUser(rows)
+		m, err = p.scanRowSecondLevel(rows)
 		if err != nil {
 			break
 		}
 		ms = append(ms, m)
 	}
 
-	return ms, nil
+	return makeProperties(ms), nil
 }
 
 func (p Property) CreateStorage(property model.Property) (*uuid.UUID, error) {
@@ -531,8 +554,8 @@ func (p Property) scanRow(s pgx.Row) (model.Property, error) {
 	return m, nil
 }
 
-func (p Property) scanRowWithUser(s pgx.Row) (model.PropertySecondLevel, error) {
-	m := model.PropertySecondLevel{}
+func (p Property) scanRowSecondLevel(s pgx.Row) (model.PropertySecondLevelStorage, error) {
+	m := model.PropertySecondLevelStorage{}
 	err := s.Scan(
 		&m.ID,
 		&m.Location.ID,
@@ -564,10 +587,25 @@ func (p Property) scanRowWithUser(s pgx.Row) (model.PropertySecondLevel, error) 
 		&m.User.Email,
 		&m.User.Theme,
 		&m.User.PersonID,
+		&m.Media.ID,
+		&m.Media.Name,
+		&m.Media.URL,
+		&m.Media.Type,
+		&m.Media.Size,
 	)
 	if err != nil {
-		return model.PropertySecondLevel{}, err
+		return model.PropertySecondLevelStorage{}, err
 	}
 
 	return m, nil
+}
+
+func makeProperties(storage model.PropertiesSecondLevelStorage) model.PropertiesSecondLevel {
+	properties := storage.PropertiesWithMedias()
+
+	return properties
+}
+
+func makeProperty(storage model.PropertySecondLevelStorage) model.PropertySecondLevel {
+	return storage.PropertyWithMedia()
 }

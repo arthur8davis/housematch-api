@@ -6,9 +6,9 @@ import (
 )
 
 type StorageProperty interface {
-	GetStorageById(id uuid.UUID) (*model.PropertySecondLevel, error)
-	GetStorageAll() (model.PropertiesSecondLevel, error)
-	GetStorageByUserId(id uuid.UUID) (model.PropertiesSecondLevel, error)
+	GetByIdStorage(id uuid.UUID) (*model.PropertySecondLevel, error)
+	GetAllStorage() (model.PropertiesSecondLevel, error)
+	GetByUserIdStorage(id uuid.UUID) (model.PropertiesSecondLevel, error)
 	CreateStorage(m model.Property) (*uuid.UUID, error)
 	CreateCompleteStorage(m model.PropertyComplete, idsMedia []uuid.UUID) (*uuid.UUID, error)
 	UpdateStorage(id uuid.UUID, model model.Property) (bool, error)
