@@ -1,3 +1,4 @@
+MAINTAINER Arthur Davis <arthur8davis@gmail.com>
 FROM golang:1.19.0 AS builder
 
 ENV GOPRIVATE=dev.azure.com

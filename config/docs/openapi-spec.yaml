@@ -3031,6 +3031,34 @@ components:
       description: Lista de views.
       items:
         "$ref": "#/components/schemas/ViewSecondLevel"
+    Media:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 29995f0a-44c1-4a89-91e4-8529927957d9
+          description: ID del Location.
+        name:
+          type: string
+          example: file.jpg
+          description: File.
+        url:
+          type: string
+          example: city/home/arthur/files/da50fb04-f21e-11ed-a3f1-d85ed3842fec.jpeg
+          description: url del archivo.
+        size:
+          type: number
+          example: 113071
+          description: tamaño del archivo
+        type:
+          type: string
+          example: image/jpeg
+          description: tipo de archivo
+    Medias:
+      type: array
+      description: Lista de medias.
+      items:
+        "$ref": '#/components/schemas/Media'
     Location:
       type: object
       properties:
@@ -3248,6 +3276,8 @@ components:
           type: integer
           example: 1
           description: number of garage del property
+        medias:
+          "$ref": "#/components/schemas/Medias"
     PropertiesSecondLevel:
       type: array
       description: Lista de Propiedades.
